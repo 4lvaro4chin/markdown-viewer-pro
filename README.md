@@ -256,23 +256,35 @@ Visita http://localhost:3000
 
 ### Deploy en Vercel
 
+**Opción 1: Vercel (Recomendado - Frontend Only)**
+
 1. **Conectar repositorio:**
    - Ve a [Vercel](https://vercel.com)
    - Click en "New Project"
    - Selecciona el repositorio `markdown-viewer-pro`
 
-2. **Configuración automática:**
+2. **Vercel detectará automáticamente:**
    - Framework: `Vite`
    - Build Command: `npm run build`
    - Output Directory: `dist`
-   - Environment Variables: No necesarias para la demo
 
 3. **Deploy:**
-   - Vercel detectará automáticamente la configuración
    - Click en "Deploy"
    - Tu app estará en vivo en ~30 segundos
 
-**Nota:** El backend (Express) se ejecuta junto con el frontend en Vercel usando serverless functions. La configuración está lista en `vite.config.ts`.
+**Nota:** Este es un deployment frontend-only. El servidor Express (backend) no está incluido. Funciona completamente con localStorage local. Para usar el backend localmente:
+
+```bash
+npm run dev  # Inicia frontend + backend en desarrollo
+```
+
+**Opción 2: Self-hosted (Con backend)**
+
+Para desplegar con el servidor Express:
+- Render, Railway, Fly.io, o tu propio VPS
+- Build: `npm run build`
+- Start: `npm run server`
+- Port: 3000
 
 ## 📄 Licencia
 
