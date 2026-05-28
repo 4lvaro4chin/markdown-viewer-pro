@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 import { Editor } from '@components/Editor/Editor'
@@ -10,7 +10,7 @@ import { useFontSize } from '@hooks/useFontSize'
 import { storageService } from '@services/storageService'
 import { exportService } from '@services/exportService'
 import { markdownService } from '@services/markdownService'
-import { MarkdownDocument, RecentDocument } from '@types/index'
+import { MarkdownDocument, RecentDocument } from '@types'
 
 function generateId() {
   return `doc_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
@@ -98,10 +98,6 @@ export function MainLayout({
   useKeyboardShortcuts({
     'ctrl+s': () => {
       forceSave()
-    },
-    'ctrl+t': () => {
-      const themes = ['light', 'dark', 'auto']
-      // Toggle theme
     },
     'ctrl+e': () => {
       const views = ['split', 'editor', 'preview']

@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import MonacoEditor from '@monaco-editor/react'
 import { EditorToolbar } from './EditorToolbar'
 
@@ -9,8 +8,6 @@ interface EditorProps {
 }
 
 export function Editor({ content, onChange, docName }: EditorProps) {
-  const editorRef = useRef(null)
-
   const handleEditorChange = (value: string | undefined) => {
     if (value !== undefined) {
       onChange(value)
@@ -23,7 +20,6 @@ export function Editor({ content, onChange, docName }: EditorProps) {
 
       <div className="flex-1 overflow-hidden">
         <MonacoEditor
-          ref={editorRef}
           language="markdown"
           value={content}
           onChange={handleEditorChange}

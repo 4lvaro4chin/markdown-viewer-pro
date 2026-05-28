@@ -64,7 +64,7 @@ export const exportService = {
     }
   },
 
-  exportToHTML(content: string, htmlContent: string, filename: string): void {
+  exportToHTML(_: string, htmlContent: string, filename: string): void {
     const html = `
 <!DOCTYPE html>
 <html lang="es">

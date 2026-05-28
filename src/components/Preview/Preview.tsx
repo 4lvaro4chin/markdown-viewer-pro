@@ -3,7 +3,7 @@ import { Copy, ChevronRight, ChevronLeft } from 'lucide-react'
 import { marked } from 'marked'
 import { markdownService } from '@services/markdownService'
 import { TableOfContents } from './TableOfContents'
-import { TableOfContentsItem } from '@types/index'
+import { TableOfContentsItem } from '@types'
 
 interface PreviewProps {
   content: string

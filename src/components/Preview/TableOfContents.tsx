@@ -1,6 +1,6 @@
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
-import { TableOfContentsItem } from '@types/index'
+import { TableOfContentsItem } from '@types'
 
 interface TableOfContentsProps {
   items: TableOfContentsItem[]
