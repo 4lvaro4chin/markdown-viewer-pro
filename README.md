@@ -246,14 +246,33 @@ GET    /api/health               Health check
 
 ## 🚢 Deploy
 
-Para producción:
-
+### Local Production
 ```bash
 npm run build
 npm run server
 ```
 
 Visita http://localhost:3000
+
+### Deploy en Vercel
+
+1. **Conectar repositorio:**
+   - Ve a [Vercel](https://vercel.com)
+   - Click en "New Project"
+   - Selecciona el repositorio `markdown-viewer-pro`
+
+2. **Configuración automática:**
+   - Framework: `Vite`
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Environment Variables: No necesarias para la demo
+
+3. **Deploy:**
+   - Vercel detectará automáticamente la configuración
+   - Click en "Deploy"
+   - Tu app estará en vivo en ~30 segundos
+
+**Nota:** El backend (Express) se ejecuta junto con el frontend en Vercel usando serverless functions. La configuración está lista en `vite.config.ts`.
 
 ## 📄 Licencia
 
