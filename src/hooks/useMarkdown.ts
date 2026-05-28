@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { MarkdownDocument, DocumentVersion } from '@types'
+import { MarkdownDocument, DocumentVersion } from '@types/index'
 
 const STORAGE_PREFIX = 'markdown:'
 

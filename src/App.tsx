@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { MainLayout } from '@components/Layout/MainLayout'
 import { useMarkdown } from '@hooks/useMarkdown'
 import { useTheme } from '@hooks/useTheme'
-import { MarkdownDocument } from '@types'
+import { MarkdownDocument } from '@types/index'
 
 function App() {
   const [currentDoc, setCurrentDoc] = useState<MarkdownDocument | null>(null)

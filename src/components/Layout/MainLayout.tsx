@@ -10,7 +10,7 @@ import { useFontSize } from '@hooks/useFontSize'
 import { storageService } from '@services/storageService'
 import { exportService } from '@services/exportService'
 import { markdownService } from '@services/markdownService'
-import { MarkdownDocument, RecentDocument } from '@types'
+import { MarkdownDocument, RecentDocument } from '@types/index'
 
 function generateId() {
   return `doc_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`

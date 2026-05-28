@@ -1,4 +1,4 @@
-import { MarkdownDocument, RecentDocument, DocumentVersion } from '@types'
+import { MarkdownDocument, RecentDocument, DocumentVersion } from '@types/index'
 
 const PREFIX = 'markdown:'
 

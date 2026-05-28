@@ -1,6 +1,6 @@
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
-import { TableOfContentsItem } from '@types'
+import { TableOfContentsItem } from '@types/index'
 
 interface TableOfContentsProps {
   items: TableOfContentsItem[]
@@ -59,7 +59,7 @@ function TableOfContentsNode({ item }: TableOfContentsNodeProps) {
 
       {isOpen && hasChildren && (
         <ul className="ml-4 mt-1 space-y-1 border-l border-gray-300 dark:border-gray-600 pl-2">
-          {item.children!.map(child => (
+          {item.children!.map((child: TableOfContentsItem) => (
             <TableOfContentsNode key={child.id} item={child} />
           ))}
         </ul>
