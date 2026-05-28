@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { FileText, Trash2, Clock, Plus } from 'lucide-react'
 import { storageService } from '@services/storageService'
-import { RecentDocument } from '@types/index'
+import { RecentDocument } from '@types'
 
 interface SidebarProps {
   isOpen: boolean

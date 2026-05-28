@@ -1,5 +1,5 @@
 import { marked } from 'marked'
-import { TableOfContentsItem } from '@types/index'
+import { TableOfContentsItem } from '@types'
 
 export const markdownService = {
   renderMarkdown(content: string): string {
