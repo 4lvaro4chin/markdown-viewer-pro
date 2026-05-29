@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 import { Editor } from '@components/Editor/Editor'
@@ -35,6 +35,7 @@ export function MainLayout({
   const [sidebarVisible, setSidebarVisible] = useState(true)
   const [view, setView] = useState<'split' | 'editor' | 'preview'>('preview')
   const { fontSize, increaseFontSize, decreaseFontSize } = useFontSize()
+  const previewContentRef = useRef<HTMLElement>(null)
   const { forceSave, hasUnsavedChanges } = useAutoSave(
     content,
     (newContent) => {
@@ -84,11 +85,11 @@ export function MainLayout({
     const filename = currentDoc.name.replace(/\.md$/, '')
 
     try {
-      const html = markdownService.renderMarkdown(content)
       await exportService.exportToPDF(
         content,
         `${filename}.pdf`,
-        html
+        undefined,
+        previewContentRef.current || undefined
       )
     } catch (error) {
       console.error('Error al exportar:', error)
@@ -173,7 +174,7 @@ export function MainLayout({
 
             {(view === 'split' || view === 'preview') && (
               <div className={view === 'split' ? 'flex-1 overflow-hidden border-l border-gray-200 dark:border-gray-800' : 'w-full overflow-hidden'}>
-                <Preview content={content} docName={currentDoc.name} fontSize={fontSize} />
+                <Preview content={content} docName={currentDoc.name} fontSize={fontSize} exportRef={previewContentRef} />
               </div>
             )}
           </div>

@@ -9,9 +9,10 @@ interface PreviewProps {
   content: string
   docName: string
   fontSize?: number
+  exportRef?: React.RefObject<HTMLElement>
 }
 
-export function Preview({ content, docName, fontSize = 16 }: PreviewProps) {
+export function Preview({ content, docName, fontSize = 16, exportRef }: PreviewProps) {
   const [toc, setToc] = useState<TableOfContentsItem[]>([])
   const [htmlContent, setHtmlContent] = useState('')
   const [tocVisible, setTocVisible] = useState(true)
@@ -144,13 +145,12 @@ export function Preview({ content, docName, fontSize = 16 }: PreviewProps) {
         )}
 
         <div className="flex-1 overflow-y-auto">
-          <article className="p-6 sm:p-8 max-w-4xl mx-auto" style={{ fontSize: `${fontSize}px` }}>
+          <article className="p-6 sm:p-8 max-w-4xl mx-auto" style={{ fontSize: `${fontSize}px` }} ref={exportRef as React.RefObject<HTMLArticleElement>}>
             <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
               {docName}
             </h1>
 
             <div
-              ref={contentRef}
               className="prose dark:prose-invert max-w-none prose-headings:scroll-mt-20 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-code:bg-gray-200 dark:prose-code:bg-gray-700 prose-pre:bg-gray-900 dark:prose-pre:bg-slate-800"
             >
               <div dangerouslySetInnerHTML={{ __html: htmlContent }} />

@@ -2,7 +2,7 @@ import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 
 export const exportService = {
-  async exportToPDF(content: string, filename: string, htmlContent?: string): Promise<void> {
+  async exportToPDF(content: string, filename: string, htmlContent?: string, previewElement?: HTMLElement): Promise<void> {
     try {
       const pdf = new jsPDF({
         orientation: 'portrait',
@@ -13,27 +13,77 @@ export const exportService = {
       const pageWidth = pdf.internal.pageSize.getWidth()
       const pageHeight = pdf.internal.pageSize.getHeight()
       const margin = 15
-      const maxWidth = pageWidth - margin * 2
 
-      if (htmlContent) {
+      if (previewElement) {
+        const canvas = await html2canvas(previewElement, {
+          scale: 2,
+          backgroundColor: '#ffffff',
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+        })
+
+        const imgData = canvas.toDataURL('image/png')
+        const imgWidth = pageWidth - margin * 2
+        const imgHeight = (canvas.height * imgWidth) / canvas.width
+        const availableHeight = pageHeight - margin * 2
+
+        let currentY = 0
+        let pageCount = 0
+
+        while (currentY < imgHeight) {
+          if (pageCount > 0) {
+            pdf.addPage()
+          }
+
+          const sourceY = currentY * canvas.width / imgWidth
+          const sourceHeight = Math.min(availableHeight * canvas.width / imgWidth, canvas.height - sourceY)
+          const printHeight = sourceHeight * imgWidth / canvas.width
+
+          const croppedCanvas = document.createElement('canvas')
+          croppedCanvas.width = canvas.width
+          croppedCanvas.height = sourceHeight
+
+          const ctx = croppedCanvas.getContext('2d')
+          if (ctx) {
+            ctx.drawImage(canvas, 0, sourceY, canvas.width, sourceHeight, 0, 0, canvas.width, sourceHeight)
+          }
+
+          const croppedImgData = croppedCanvas.toDataURL('image/png')
+          pdf.addImage(croppedImgData, 'PNG', margin, margin, imgWidth, printHeight)
+
+          currentY += availableHeight
+          pageCount++
+        }
+      } else if (htmlContent) {
         const element = document.createElement('div')
         element.innerHTML = htmlContent
-        element.style.width = `${pageWidth}mm`
-        element.style.padding = `${margin}mm`
+        element.style.position = 'fixed'
+        element.style.left = '-9999px'
+        element.style.top = '-9999px'
+        element.style.background = '#ffffff'
+        element.style.padding = '2rem'
+        element.style.maxWidth = '900px'
+
+        document.body.appendChild(element)
 
         const canvas = await html2canvas(element, {
           scale: 2,
           backgroundColor: '#ffffff',
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
         })
 
+        document.body.removeChild(element)
+
         const imgData = canvas.toDataURL('image/png')
-        const imgWidth = maxWidth
+        const imgWidth = pageWidth - margin * 2
         const imgHeight = (canvas.height * imgWidth) / canvas.width
         let heightLeft = imgHeight
-
         let position = margin
 
-        pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight)
+        pdf.addImage(imgData, 'PNG', margin, position, imgWidth, Math.min(imgHeight, pageHeight - margin * 2))
         heightLeft -= pageHeight - margin * 2
 
         while (heightLeft > 0) {
@@ -43,6 +93,7 @@ export const exportService = {
           heightLeft -= pageHeight - margin * 2
         }
       } else {
+        const maxWidth = pageWidth - margin * 2
         const lines = content.split('\n')
         let yPosition = margin
 
