@@ -79,6 +79,24 @@ export function MainLayout({
     }
   }
 
+  const handleSaveAndDownload = async () => {
+    if (!currentDoc) return
+
+    forceSave()
+
+    const filename = currentDoc.name.endsWith('.md') ? currentDoc.name : `${currentDoc.name}.md`
+
+    const blob = new Blob([content], { type: 'text/markdown' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
   const handleExport = async () => {
     if (!currentDoc) return
 
@@ -124,7 +142,6 @@ export function MainLayout({
             isOpen={sidebarOpen}
             onClose={() => setSidebarOpen(false)}
             onDocumentSelect={handleSelectDocument}
-            onNewDocument={handleNewDocument}
           />
 
           <main className="flex-1 flex items-center justify-center p-4">
@@ -139,6 +156,7 @@ export function MainLayout({
     <div className="h-screen flex flex-col">
       <Header
         onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+        onSave={handleSaveAndDownload}
         onExport={handleExport}
         onViewChange={setView}
         currentView={view}
@@ -155,7 +173,6 @@ export function MainLayout({
             isOpen={sidebarOpen}
             onClose={() => setSidebarOpen(false)}
             onDocumentSelect={handleSelectDocument}
-            onNewDocument={handleNewDocument}
           />
         )}
 

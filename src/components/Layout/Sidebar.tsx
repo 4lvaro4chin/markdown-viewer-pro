@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FileText, Trash2, Clock, Plus } from 'lucide-react'
+import { FileText, Trash2, Clock } from 'lucide-react'
 import { storageService } from '@services/storageService'
 import { RecentDocument } from '@types'
 
@@ -7,10 +7,9 @@ interface SidebarProps {
   isOpen: boolean
   onClose?: () => void
   onDocumentSelect?: (doc: RecentDocument) => void
-  onNewDocument?: () => void
 }
 
-export function Sidebar({ isOpen, onClose, onDocumentSelect, onNewDocument }: SidebarProps) {
+export function Sidebar({ isOpen, onClose, onDocumentSelect }: SidebarProps) {
   const [recentDocs, setRecentDocs] = useState<RecentDocument[]>([])
 
   useEffect(() => {
@@ -42,16 +41,6 @@ export function Sidebar({ isOpen, onClose, onDocumentSelect, onNewDocument }: Si
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="p-4">
-          <button
-            onClick={onNewDocument}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
-          >
-            <Plus size={18} />
-            Nuevo documento
-          </button>
-        </div>
-
         <div className="px-4 py-2">
           <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
             <Clock size={16} />

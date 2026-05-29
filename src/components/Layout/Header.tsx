@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useTheme } from '@hooks/useTheme'
-import { Menu, Sun, Moon, Monitor, Download, Share2, Code, Eye, Columns, ZoomIn, ZoomOut, PanelLeft } from 'lucide-react'
+import { Menu, Sun, Moon, Monitor, Download, Code, Eye, Columns, ZoomIn, ZoomOut, PanelLeft, Save } from 'lucide-react'
 
 interface HeaderProps {
   onMenuClick?: () => void
+  onSave?: () => void
   onExport?: () => void
   onViewChange?: (view: 'split' | 'editor' | 'preview') => void
   currentView?: 'split' | 'editor' | 'preview'
@@ -16,6 +17,7 @@ interface HeaderProps {
 
 export function Header({
   onMenuClick,
+  onSave,
   onExport,
   onViewChange,
   currentView,
@@ -62,6 +64,17 @@ export function Header({
             <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100 text-sm rounded">
               ○ Sin guardar
             </div>
+          )}
+
+          {onSave && (
+            <button
+              onClick={onSave}
+              className="p-2 hover:bg-green-100 dark:hover:bg-green-900 text-green-600 dark:text-green-400 rounded-lg transition-colors"
+              aria-label="Guardar y descargar"
+              title="Guardar documento y descargar archivo"
+            >
+              <Save size={20} />
+            </button>
           )}
 
           {onToggleSidebar && (
@@ -159,16 +172,9 @@ export function Header({
             onClick={onExport}
             className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors hidden sm:block"
             aria-label="Exportar"
-            title="Exportar documento"
+            title="Exportar documento (PDF)"
           >
             <Download size={20} />
-          </button>
-
-          <button
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors hidden sm:block"
-            aria-label="Compartir"
-          >
-            <Share2 size={20} />
           </button>
         </div>
       </div>

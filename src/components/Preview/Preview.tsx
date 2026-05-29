@@ -145,13 +145,39 @@ export function Preview({ content, docName, fontSize = 16, exportRef }: PreviewP
         )}
 
         <div className="flex-1 overflow-y-auto">
-          <article className="p-6 sm:p-8 max-w-4xl mx-auto" style={{ fontSize: `${fontSize}px` }} ref={exportRef as React.RefObject<HTMLArticleElement>}>
-            <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+          <article
+            className="p-6 sm:p-8 max-w-4xl mx-auto"
+            style={{ fontSize: `${fontSize}px` }}
+            ref={exportRef as React.RefObject<HTMLArticleElement>}
+          >
+            <h1 className="text-3xl font-bold mb-6" style={{ color: '#B10057' }}>
               {docName}
             </h1>
 
+            <style>{`
+              .prose h1 { color: #B10057 !important; font-weight: bold; }
+              .prose h2 { color: #F78700 !important; font-weight: bold; }
+              .prose h3 { color: #3B3B3B !important; font-weight: bold; }
+              .prose h4, .prose h5, .prose h6 { color: #3B3B3B !important; }
+              .prose { color: #3B3B3B !important; }
+              .prose a { color: #B10057 !important; text-decoration: underline; }
+              .prose strong { color: #3B3B3B !important; font-weight: 600; }
+              .prose em { color: #F78700 !important; }
+              .prose table { border-color: #B10057 !important; }
+              .prose table thead { background-color: #B10057 !important; }
+              .prose table thead th { color: white !important; border-color: #B10057 !important; }
+              .prose table tbody tr:nth-child(odd) { background-color: #F5D0E5 !important; }
+              .prose table tbody tr:nth-child(even) { background-color: #F4F4F4 !important; }
+              .prose table tbody td { border-color: #E0E0E0 !important; color: #3B3B3B !important; }
+              .prose blockquote { border-left-color: #B10057 !important; color: #3B3B3B !important; }
+              .prose code { background-color: #F4F4F4 !important; color: #B10057 !important; }
+              .prose pre { background-color: #3B3B3B !important; }
+              .prose pre code { color: #F78700 !important; }
+              .prose hr { border-color: #F78700 !important; }
+            `}</style>
+
             <div
-              className="prose dark:prose-invert max-w-none prose-headings:scroll-mt-20 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-code:bg-gray-200 dark:prose-code:bg-gray-700 prose-pre:bg-gray-900 dark:prose-pre:bg-slate-800"
+              className="prose max-w-none prose-headings:scroll-mt-20"
             >
               <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
             </div>
