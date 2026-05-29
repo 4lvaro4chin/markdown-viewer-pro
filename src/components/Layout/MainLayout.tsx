@@ -9,7 +9,6 @@ import { useKeyboardShortcuts } from '@hooks/useKeyboardShortcuts'
 import { useFontSize } from '@hooks/useFontSize'
 import { storageService } from '@services/storageService'
 import { exportService } from '@services/exportService'
-import { markdownService } from '@services/markdownService'
 import { MarkdownDocument, RecentDocument } from '@types'
 
 function generateId() {

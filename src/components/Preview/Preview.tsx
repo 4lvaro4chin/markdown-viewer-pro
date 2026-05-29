@@ -148,7 +148,7 @@ export function Preview({ content, docName, fontSize = 16, exportRef }: PreviewP
           <article
             className="p-6 sm:p-8 max-w-4xl mx-auto"
             style={{ fontSize: `${fontSize}px` }}
-            ref={exportRef as React.RefObject<HTMLArticleElement>}
+            ref={exportRef as React.RefObject<HTMLElement>}
           >
             <h1 className="text-3xl font-bold mb-6" style={{ color: '#B10057' }}>
               {docName}

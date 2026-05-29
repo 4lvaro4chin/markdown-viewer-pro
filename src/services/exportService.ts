@@ -23,7 +23,6 @@ export const exportService = {
           logging: false,
         })
 
-        const imgData = canvas.toDataURL('image/png')
         const imgWidth = pageWidth - margin * 2
         const imgHeight = (canvas.height * imgWidth) / canvas.width
         const availableHeight = pageHeight - margin * 2
@@ -77,7 +76,6 @@ export const exportService = {
 
         document.body.removeChild(element)
 
-        const imgData = canvas.toDataURL('image/png')
         const imgWidth = pageWidth - margin * 2
         const imgHeight = (canvas.height * imgWidth) / canvas.width
         let heightLeft = imgHeight
